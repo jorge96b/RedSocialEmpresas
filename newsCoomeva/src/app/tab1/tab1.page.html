@@ -1,17 +1,35 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  
+  <h1>Destacadas</h1>
+  <ion-slides pager="true" [options]="slideOpts">
+    <ion-slide *ngFor="let news of newsList">
+      <ion-card>
+        <img src={{news.imagen}}/>
+        <ion-card-header>
+          <ion-card-title>{{news.nombre}}</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  </ion-slides>
+
+  <h1>Noticias</h1>
+
+  <ion-list>
+    <ion-card *ngFor="let news of newsList">
+        <img src={{news.imagen}}/>
+        <ion-card-header>
+          <ion-card-subtitle>{{news.resumen}}</ion-card-subtitle>
+          <ion-card-title>{{news.nombre}}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          {{news.detalle}}
+          <ion-button (click)="saveNews(news)">Guardar</ion-button>
+          <ion-button (click)="detailNews(news)">detalle</ion-button>
+        </ion-card-content>
+      </ion-card>
+
+  </ion-list>
+
 </ion-content>

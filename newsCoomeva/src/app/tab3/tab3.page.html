@@ -1,17 +1,27 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-card *ngFor="let news of misFavoritos let i = index">
+      <img src={{news.imagen}}/>
+      <ion-card-header>
+        <ion-card-subtitle>{{news.resumen}}</ion-card-subtitle>
+        <ion-card-title>{{news.nombre}}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        {{news.detalle}}
+        <ion-button (click)="deleteLocalStorage(i)">Borrar</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
 </ion-content>
