@@ -15,7 +15,16 @@
 
   <h1>Noticias</h1>
 
-  <ion-list>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Cargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngIf="bandera">
     <ion-card *ngFor="let news of newsList">
         <img src={{news.imagen}}/>
         <ion-card-header>
@@ -31,5 +40,10 @@
       </ion-card>
 
   </ion-list>
+
+  <div *ngIf="!bandera">
+    <br>
+    <h3>Debes seleccionar una cateoria</h3>
+  </div>
 
 </ion-content>

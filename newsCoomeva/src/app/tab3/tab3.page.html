@@ -5,23 +5,29 @@
       pullingIcon="chevron-down-circle-outline"
       pullingText="Pull to refresh"
       refreshingSpinner="circles"
-      refreshingText="Refreshing...">
+      refreshingText="Cargando...">
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-list>
-    <ion-card *ngFor="let news of misFavoritos let i = index">
-      <img src={{news.imagen}} (click)="detailNews(news)"/>
-      <ion-card-header (click)="detailNews(news)">
-        <ion-card-subtitle>{{news.resumen}}</ion-card-subtitle>
-        <ion-card-title>{{news.nombre}}</ion-card-title>
-      </ion-card-header>
+  <div *ngIf="misFavoritos != null">
+    <ion-list>
+      <ion-card *ngFor="let news of misFavoritos let i = index">
+        <img src={{news.imagen}} (click)="detailNews(news)"/>
+        <ion-card-header (click)="detailNews(news)">
+          <ion-card-subtitle>{{news.resumen}}</ion-card-subtitle>
+          <ion-card-title>{{news.nombre}}</ion-card-title>
+        </ion-card-header>
 
-      <ion-card-content (click)="detailNews(news)">
-        {{news.detalle}}
-        <ion-button (click)="deleteLocalStorage(i)">Borrar</ion-button>
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
+        <ion-card-content (click)="detailNews(news)">
+          {{news.detalle}}
+          <ion-button (click)="deleteLocalStorage(i)">Borrar</ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </div>  
+
+  <div *ngIf="misFavoritos == null">
+    <h3>Debes agregar noticias a tus favoritos</h3>
+  </div>
 
 </ion-content>

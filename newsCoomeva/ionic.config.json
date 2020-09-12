@@ -1,5 +1,7 @@
 {
   "name": "newsCoomeva",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

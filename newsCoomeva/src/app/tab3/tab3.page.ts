@@ -12,6 +12,7 @@ export class Tab3Page {
 
   constructor(private router: Router) {
     this.misFavoritos=JSON.parse(localStorage.getItem('favoritos'));
+    console.log(this.misFavoritos);
   }
 
   deleteLocalStorage(posArray: number){

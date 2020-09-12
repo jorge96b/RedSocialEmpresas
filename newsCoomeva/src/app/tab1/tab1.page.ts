@@ -13,14 +13,30 @@ export class Tab1Page {
   newsList = [];
   newsDestacadas : any;
   categorias :any;
+  bandera : boolean = false;
   
   constructor(private router: Router,public restProvider : RestProvider) {
     this.consultarNewsDestacadas();
-    this.categorias = JSON.parse(localStorage.getItem('categorias'))
-    for (var i = 0; i < 9; i++) {
-      if(this.categorias[i].estado == 'True'){
-        this.consultarNewsCategoria(i)
+    this.categorias = JSON.parse(localStorage.getItem('categorias'));
+    this.getNewsCategorias();
+  }
+
+  getNewsCategorias(){
+    console.log("igreso");
+    if(this.categorias != null){
+      for (var i = 0; i < 9; i++) {
+        if(this.categorias[i].estado == 'True'){
+          console.log("rnvontro");
+          this.bandera = true;
+          this.consultarNewsCategoria(i)
+        }
       }
+    }else{
+      this.restProvider.getNews()
+      .then(data => {
+        this.newsList=this.newsList.concat(data);
+        console.log(this.newsList);
+      });
     }
   }
 
@@ -60,6 +76,16 @@ export class Tab1Page {
     };
     console.log(navigationExtras);
     this.router.navigate(['/detail-news'], navigationExtras);
+  }
+
+  doRefresh(event) {
+    this.newsList = [];
+    this.categorias = JSON.parse(localStorage.getItem('categorias'));
+    this.getNewsCategorias();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
 
 }
