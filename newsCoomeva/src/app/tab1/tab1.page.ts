@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router , NavigationExtras} from '@angular/router';
+import { RestProvider } from 'src/providers/rest/rest';
 
 @Component({
   selector: 'app-tab1',
@@ -9,50 +10,34 @@ import { Router , NavigationExtras} from '@angular/router';
 export class Tab1Page {
 
   favNoticias : any;
-
-  newsList = [
-    {
-      categoria: "Coomeva",
-      nombre : "Card Title",
-      editor : "Editor",
-      fecha_creacion : "",
-      destacado : "",
-      tags : "",
-      likes : "",
-      dislikes : "",
-      resumen : "Card Subtitle",
-      detalle : "Keep close to Nature's heart... and break clear away, once in awhile,and climb a mountain or spend a week in the woods. Wash your spirit clean.",
-      imagen : "https://homepages.cae.wisc.edu/~ece533/images/arctichare.png",
-    },
-    {
-      categoria: "Eps",
-      nombre : "Card Title",
-      editor : "Editor",
-      fecha_creacion : "",
-      destacado : "",
-      tags : "",
-      likes : "",
-      dislikes : "",
-      resumen : "Card Subtitle",
-      detalle : "Keep close to Nature's heart... and break clear away, once in awhile, and climb a mountain or spend a week in the woods. Wash your spirit clean.",
-      imagen : "https://homepages.cae.wisc.edu/~ece533/images/arctichare.png",
-    },
-    {
-      categoria: "Eps",
-      nombre : "Card Title",
-      editor : "Editor",
-      fecha_creacion : "",
-      destacado : "",
-      tags : "",
-      likes : "",
-      dislikes : "",
-      resumen : "Card Subtitle",
-      detalle : "Keep close to Nature's heart... and break clear away, once in awhile, and climb a mountain or spend a week in the woods. Wash your spirit clean.",
-      imagen : "https://homepages.cae.wisc.edu/~ece533/images/arctichare.png",
+  newsList = [];
+  newsDestacadas : any;
+  categorias :any;
+  
+  constructor(private router: Router,public restProvider : RestProvider) {
+    this.consultarNewsDestacadas();
+    this.categorias = JSON.parse(localStorage.getItem('categorias'))
+    for (var i = 0; i < 9; i++) {
+      if(this.categorias[i].estado == 'True'){
+        this.consultarNewsCategoria(i)
+      }
     }
-  ]
+  }
 
-  constructor(private router: Router) {}
+  consultarNewsDestacadas() {
+    this.restProvider.getDestacadas()
+    .then(data => {
+      this.newsDestacadas = data;
+    });
+  }
+
+  consultarNewsCategoria(categoria) {
+    this.restProvider.getNewsCategoria(categoria)
+    .then(data => {
+      this.newsList=this.newsList.concat(data);
+      console.log(this.newsList);
+    });
+  }
 
   saveNews(news){
     console.log(news);

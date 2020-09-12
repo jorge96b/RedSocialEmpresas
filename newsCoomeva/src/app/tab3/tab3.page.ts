@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router , NavigationExtras} from '@angular/router';
 
 @Component({
   selector: 'app-tab3',
@@ -9,7 +10,7 @@ export class Tab3Page {
 
   misFavoritos:any
 
-  constructor() {
+  constructor(private router: Router) {
     this.misFavoritos=JSON.parse(localStorage.getItem('favoritos'));
   }
 
@@ -27,6 +28,16 @@ export class Tab3Page {
       console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
+  }
+
+  detailNews(news){
+    const navigationExtras: NavigationExtras = {
+      state: {
+        news
+      }
+    };
+    console.log(navigationExtras);
+    this.router.navigate(['/detail-news'], navigationExtras);
   }
 
 }

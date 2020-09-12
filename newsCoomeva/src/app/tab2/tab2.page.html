@@ -5,27 +5,71 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="center">
+<!--   <div class="center">
     <ion-chip outline color="primary">
       <ion-icon name="pin"></ion-icon>
-      <ion-label>Cooperativa</ion-label>
-      <ion-icon name="close-circle"></ion-icon>
+      <ion-label>Corredores de Seguros</ion-label>
     </ion-chip>
     <ion-chip outline color="secondary">
       <ion-icon name="wine"></ion-icon>
-      <ion-label>Eps</ion-label>
-      <ion-icon name="close-circle"></ion-icon>
+      <ion-label>Bancoomeva</ion-label>
     </ion-chip>
     <ion-chip outline color="tertiary">
       <ion-icon name="restaurant"></ion-icon>
-      <ion-label>Medicina Prepagada</ion-label>
-      <ion-icon name="close-circle"></ion-icon>
+      <ion-label>FiduCoomeva</ion-label>
     </ion-chip>
     <ion-chip outline color="dark">
       <ion-icon name="videocam"></ion-icon>
-      <ion-label>Bancoomeva</ion-label>
-      <ion-icon name="close-circle"></ion-icon>
+      <ion-label>Medicina Prepagada</ion-label>
     </ion-chip>
+    <ion-chip outline color="primary">
+      <ion-icon name="pin"></ion-icon>
+      <ion-label>Coomeva Eps</ion-label>
+    </ion-chip>
+    <ion-chip outline color="secondary">
+      <ion-icon name="wine"></ion-icon>
+      <ion-label>christus sinergia</ion-label>
+    </ion-chip>
+    <ion-chip outline color="tertiary">
+      <ion-icon name="restaurant"></ion-icon>
+      <ion-label>Fundacion</ion-label>
+    </ion-chip>
+    <ion-chip outline color="dark">
+      <ion-icon name="videocam"></ion-icon>
+      <ion-label>Turismo Agencia de viajes</ion-label>
+    </ion-chip>
+    <ion-chip outline color="primary">
+      <ion-icon name="pin"></ion-icon>
+      <ion-label>Lake House</ion-label>
+    </ion-chip>
+    <ion-chip outline color="secondary">
+      <ion-icon name="wine"></ion-icon>
+      <ion-label>Fecoomeva</ion-label>
+    </ion-chip>
+
+  </div> -->
+
+  <div class="center">
+    <div *ngFor="let categoria of listaCategorias let i = index">
+      <div *ngIf="categoria.estado=='True'" (click)="addFac(i)">
+        <ion-chip outline [color]="categoria.color">
+          <ion-icon [name]="categoria.icono"></ion-icon>
+          <ion-label>{{categoria.nombre}}</ion-label>
+        </ion-chip>
+      </div>
+      <div *ngIf="categoria.estado=='False'" (click)="addFac(i)">
+        <ion-chip [color]="categoria.color">
+          <ion-icon [name]="categoria.icono"></ion-icon>
+          <ion-label>{{categoria.nombre}}</ion-label>
+        </ion-chip>
+      </div>
+    </div>
   </div>
 
 </ion-content>
+
+<ion-footer  class="ion-no-border">
+  <ion-toolbar>
+    <ion-button expand="full" (click)="saveCategoria()">Guardar</ion-button>
+  </ion-toolbar>
+</ion-footer>
